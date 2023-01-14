@@ -10,10 +10,10 @@ function Admin({ children }: AdminPropType) {
     <div>
       <Header />
 
-      <main className="flex min-h-screen">
+      <main className="flex min-h-screen mt-[56px]">
         <Sidebar />
 
-        <section className="flex-1">{children}</section>
+        <section className="flex-1 p-6">{children}</section>
       </main>
     </div>
   );

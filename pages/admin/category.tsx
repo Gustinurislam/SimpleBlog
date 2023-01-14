@@ -2,11 +2,11 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
 
-const Home: NextPage = () => {
+const AdminCategory: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Admin | Blognya Gusti</title>
+        <title>Admin | Category | Blognya Gusti</title>
         <meta name="description" content="Halaman utama admin" />
       </Head>
 
@@ -15,4 +15,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default AdminCategory;

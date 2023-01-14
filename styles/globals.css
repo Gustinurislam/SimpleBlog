@@ -25,3 +25,7 @@ input {
 .active-icons {
   @apply active:scale-95 transform transition duration-150;
 }
+
+.btn-post {
+  @apply text-[15px] border rounded-md p-[5px] bg-blue-500 text-white hover:bg-blue-400 active:scale-105 transform transition duration-100;
+}
