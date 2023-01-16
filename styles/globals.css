@@ -6,7 +6,8 @@ body {
   @apply bg-slate-100 scroll-smooth;
 }
 
-input {
+input,
+textarea {
   @apply outline-none;
 }
 
@@ -28,4 +29,13 @@ input {
 
 .btn-post {
   @apply text-[15px] border rounded-md p-2 bg-blue-500 text-white hover:bg-blue-400 active:scale-105 transform transition duration-100;
+}
+
+.input-post {
+  @apply bg-transparent p-1 border w-1/2 border-blue-500 rounded-md;
+}
+
+.btn-post:disabled,
+.input-post:disabled {
+  @apply cursor-not-allowed;
 }

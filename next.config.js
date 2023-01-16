@@ -9,6 +9,11 @@ module.exports = {
         destination: '/',
         permanent: true,
       },
+      {
+        source: '/admin',
+        destination: '/admin/post',
+        permanent: true,
+      },
     ];
   },
   env: {
