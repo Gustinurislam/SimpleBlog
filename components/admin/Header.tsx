@@ -1,3 +1,4 @@
+import pathToTitle from 'helpers/pathToTitle';
 import upperCaseFirstLetter from 'helpers/upperCaseFirstLetter';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -5,14 +6,7 @@ import { FaChevronDown, FaFolderOpen, FaUserAlt } from 'react-icons/fa';
 
 const Header = () => {
   const { asPath } = useRouter();
-
-  const pathTruncated = asPath.replace('/admin/', '');
-
-  const pathArr = pathTruncated.split('-');
-
-  const arrJoined = pathArr.map((str) => upperCaseFirstLetter(str)).join(' ');
-
-  // const title = upperCaseFirstLetter(pathTruncated);
+  const title = pathToTitle(asPath);
 
   return (
     <header className="bg-blue-500 text-white flex fixed top-0 inset-x-0 z-50">
@@ -22,7 +16,7 @@ const Header = () => {
       </h2>
 
       <nav className="p-4 flex-1 box-between">
-        <h1>{arrJoined}</h1>
+        <h1>{title}</h1>
 
         <button className="box-equal space-x-2">
           <FaUserAlt />

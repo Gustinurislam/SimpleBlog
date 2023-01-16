@@ -27,5 +27,5 @@ input {
 }
 
 .btn-post {
-  @apply text-[15px] border rounded-md p-[5px] bg-blue-500 text-white hover:bg-blue-400 active:scale-105 transform transition duration-100;
+  @apply text-[15px] border rounded-md p-2 bg-blue-500 text-white hover:bg-blue-400 active:scale-105 transform transition duration-100;
 }

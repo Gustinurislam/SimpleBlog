@@ -1,8 +1,10 @@
 import axios from 'axios';
 import Header from 'components/admin/crud/Header';
 import TblRowSkeleton from 'components/admin/post/TblRowSkeleton';
+import limitChar from 'helpers/limitChar';
 import { NextPage } from 'next';
-import Head from 'next/head';
+import Link from 'next/link';
+import { PostType } from 'pages';
 import { FaEdit, FaSort, FaTrash } from 'react-icons/fa';
 import useSWR from 'swr';
 
@@ -16,11 +18,6 @@ const AdminPost: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Admin | Post | Blognya Gusti</title>
-        <meta name="description" content="Halaman utama post" />
-      </Head>
-
       <Header addBtnUrl={'/admin/post/add'} />
 
       {/* tbl */}
@@ -42,20 +39,30 @@ const AdminPost: NextPage = () => {
         <TblRowSkeleton />
       ) : (
         // tbl row
-        <div className="grid grid-cols-3 border-b text-sm py-4 font-semibold">
-          <p>Post 1</p>
-          <p>Desc 1</p>
+        data.map((post: PostType) => (
+          <div
+            key={post.id}
+            className="grid grid-cols-3 border-b text-sm py-4 font-semibold items-center"
+          >
+            <p>{limitChar(post.title, 40)}</p>
+            <p>{limitChar(post.body, 100)}</p>
 
-          <div className="flex space-x-2">
-            <button className="btn-post box-equal gap-x-1">
-              <FaEdit /> Edit
-            </button>
-            <button className="btn-post box-equal gap-x-1">
-              <FaTrash />
-              Delete
-            </button>
+            <div className="box-equal gap-x-2">
+              <Link href={'/admin/post/edit' + post.id}>
+                <button className="btn-post box-equal gap-x-1">
+                  <FaEdit /> Edit
+                </button>
+              </Link>
+
+              <Link href={'/admin/post/delete'}>
+                <button className="btn-post box-equal gap-x-1">
+                  <FaTrash />
+                  Delete
+                </button>
+              </Link>
+            </div>
           </div>
-        </div>
+        ))
       )}
     </>
   );

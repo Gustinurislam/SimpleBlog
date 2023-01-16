@@ -18,7 +18,7 @@ const Header = ({ addBtnUrl }: HeaderPropType) => {
         <input
           type="text"
           placeholder="Search"
-          className="p-1 border rounded-md bg-transparent border-blue-500"
+          className="p-[7px] border rounded-md bg-transparent border-blue-500"
         />
         <button className="btn-post box-equal gap-x-1"><FaSearch/>Search</button>
       </div>
