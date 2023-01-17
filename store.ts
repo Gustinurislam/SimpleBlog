@@ -1,12 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "slices/counterSlice";
-// import snackbarReducer from "slices/snackbarSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import snackbarReducer from 'slices/snackbarSlice';
 // ...
 
 const store = configureStore({
   reducer: {
-    counter: counterReducer,
-    // snackbar: snackbarReducer,
+    snackbar: snackbarReducer,
     // comments: commentsReducer,
     // users: usersReducer,
   },

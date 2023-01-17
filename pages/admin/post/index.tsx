@@ -5,8 +5,10 @@ import limitChar from 'helpers/limitChar';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import { PostType } from 'pages';
+import { useState } from 'react';
 import { FaEdit, FaSort, FaTrash } from 'react-icons/fa';
 import useSWR from 'swr';
+import DeletePopup from './index/DeletePopup';
 
 const fetcher = async () => {
   const res = await axios.get('/posts');
@@ -15,10 +17,11 @@ const fetcher = async () => {
 
 const AdminPost: NextPage = () => {
   const { data, error } = useSWR('/posts', fetcher);
+  const [postId, setPostId] = useState<null | number>(null);
 
   return (
     <>
-      <Header/>
+      <Header />
 
       {/* tbl */}
       <div className="grid grid-cols-3 border-y py-4 text-sm mt-8 font-bold text-blue-500">
@@ -54,16 +57,20 @@ const AdminPost: NextPage = () => {
                 </button>
               </Link>
 
-              <Link href={'/admin/post/delete'}>
-                <button className="btn-post box-equal gap-x-1">
-                  <FaTrash />
-                  Delete
-                </button>
-              </Link>
+              <button
+                className="btn-post box-equal gap-x-1"
+                onClick={() => setPostId(post.id)}
+              >
+                <FaTrash />
+                Delete
+              </button>
             </div>
           </div>
         ))
       )}
+
+      {/* delete popup */}
+      {postId && <DeletePopup postId={postId} setPostId={setPostId} />}
     </>
   );
 };

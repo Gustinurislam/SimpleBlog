@@ -1,19 +1,15 @@
-'use strict';
-
 import axios from 'axios';
-import TextArea from 'components/admin/TextArea';
-import TextField from 'components/admin/TextField';
+import TextArea from 'components/admin/form/TextArea';
+import TextField from 'components/admin/form/TextField';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux/es/exports';
-import { currentCount } from 'slices/counterSlice';
+import { setSnackbar } from 'slices/snackbarSlice';
 
 const AdminAddPost: NextPage = () => {
   // global state
-  // const count = useSelector(currentCount);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // local state
   const [title, setTitle] = useState('');
@@ -41,6 +37,7 @@ const AdminAddPost: NextPage = () => {
     setLoading(true);
     try {
       await axios.post('/posts', payload);
+      dispatch(setSnackbar('Data added'))
       router.push('/admin/post');
     } catch {
       setError('Sorry, an error occcured');

@@ -4,6 +4,8 @@ import axios from 'axios';
 import Default from 'layouts/Default';
 import { useRouter } from 'next/router';
 import Admin from 'layouts/Admin';
+import store from 'store';
+import { Provider } from 'react-redux';
 
 axios.defaults.baseURL = process.env.apiBaseUrl;
 
@@ -12,15 +14,17 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   if (asPath.includes('/admin')) {
     return (
-      <Admin>
-        <Component {...pageProps} />
-      </Admin>
+      <Provider store={store}>
+        <Admin>
+          <Component {...pageProps} />
+        </Admin>
+      </Provider>
     );
   }
 
   return (
     <Default>
-        <Component {...pageProps} />
+      <Component {...pageProps} />
     </Default>
   );
 }
