@@ -6,8 +6,13 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setSnackbar } from 'slices/snackbarSlice';
+import { useEffect } from 'react';
 
-const AdminAddPost: NextPage = () => {
+type AdminAddPropType = {
+  postId: string | null;
+};
+
+const AdminAddPost: NextPage<AdminAddPropType> = ({ postId }) => {
   // global state
   const dispatch = useDispatch();
 
@@ -35,15 +40,46 @@ const AdminAddPost: NextPage = () => {
     };
 
     setLoading(true);
-    try {
-      await axios.post('/posts', payload);
-      dispatch(setSnackbar('Data added'))
-      router.push('/admin/post');
-    } catch {
-      setError('Sorry, an error occcured');
+
+    if (postId) {
+      try {
+        await axios.put('/posts/' + postId, payload);
+        dispatch(setSnackbar({ text: 'Data edited', type: 'success' }));
+        router.push('/admin/post');
+      } catch {
+        setError('Sorry, an error occcured');
+      }
+    } else {
+      try {
+        await axios.post('/posts', payload);
+        dispatch(setSnackbar({ text: 'Data added', type: 'success' }));
+        router.push('/admin/post');
+      } catch {
+        setError('Sorry, an error occcured');
+      }
     }
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (postId) {
+      const getDetailPost = async () => {
+        setLoading(true);
+
+        try {
+          const res = await axios.get('/posts/' + postId);
+          const { title, body } = res.data;
+
+          setTitle(title);
+          setBody(body);
+        } catch {
+          setError('Sorry, an error occcured');
+        }
+        setLoading(false);
+      };
+      getDetailPost();
+    }
+  }, [postId]);
 
   return (
     <form onSubmit={submit}>

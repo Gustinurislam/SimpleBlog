@@ -1,14 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from 'store';
 
+type SnackbarObjType = {
+  text: string;
+  type: 'success' | 'error';
+};
+
+type SnackbarType = SnackbarObjType | null;
+
 // Define a type for the slice state
 type SnackbarState = {
-  value: string;
+  value: SnackbarType;
 };
 
 // Define the initial state using that type
 const initialState: SnackbarState = {
-  value: '',
+  value: null,
 };
 
 export const snackbarSlice = createSlice({
@@ -17,7 +24,7 @@ export const snackbarSlice = createSlice({
   initialState,
   reducers: {
     // Use the PayloadAction type to declare the contents of `action.payload`
-    setSnackbar: (state, action: PayloadAction<string>) => {
+    setSnackbar: (state, action: PayloadAction<SnackbarType>) => {
       state.value = action.payload;
     },
   },

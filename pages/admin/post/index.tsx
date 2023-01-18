@@ -51,7 +51,7 @@ const AdminPost: NextPage = () => {
             <p>{limitChar(post.body, 100)}</p>
 
             <div className="box-equal gap-x-2">
-              <Link href={'/admin/post/edit' + post.id}>
+              <Link href={'/admin/post/edit/' + post.id}>
                 <button className="btn-post box-equal gap-x-1">
                   <FaEdit /> Edit
                 </button>
