@@ -1,12 +1,10 @@
 import pathToTitle from 'helpers/pathToTitle';
-import upperCaseFirstLetter from 'helpers/upperCaseFirstLetter';
 import { useRouter } from 'next/router';
-import React from 'react';
 import { FaChevronDown, FaFolderOpen, FaUserAlt } from 'react-icons/fa';
 
 const Header = () => {
-  const { asPath } = useRouter();
-  const title = pathToTitle(asPath);
+  const { route } = useRouter();
+  const title = pathToTitle(route);
 
   return (
     <header className="bg-blue-500 text-white flex fixed top-0 inset-x-0 z-50">

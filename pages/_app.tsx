@@ -10,9 +10,9 @@ import { Provider } from 'react-redux';
 axios.defaults.baseURL = process.env.apiBaseUrl;
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { asPath } = useRouter();
+  const { route } = useRouter();
 
-  if (asPath.includes('/admin')) {
+  if (route.includes('/admin')) {
     return (
       <Provider store={store}>
         <Admin>

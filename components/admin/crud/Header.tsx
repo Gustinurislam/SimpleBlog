@@ -4,8 +4,8 @@ import React from 'react';
 import { FaPlus, FaSearch } from 'react-icons/fa';
 
 const Header = () => {
-  const { asPath } = useRouter();
-  const addBtnUrl = asPath + '/add';
+  const { route } = useRouter();
+  const addBtnUrl = route + '/add';
 
   return (
     <div className="box-between">

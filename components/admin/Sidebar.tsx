@@ -21,14 +21,15 @@ const links = [
 ];
 
 const Sidebar = () => {
-  const { asPath } = useRouter();
-  const defaultClass = 'flex items-center hover:text-blue-400 hover:bg-white pl-4 py-2 gap-x-2'
+  const { route } = useRouter();
+  const defaultClass =
+    'flex items-center hover:text-blue-400 hover:bg-white pl-4 py-2 gap-x-2';
 
   const renderLinkClass = (url: string) => {
-    if (url === asPath) {
+    if (url === route) {
       return 'box-equal bg-white pl-4 py-2 gap-x-2';
     } else {
-      return defaultClass
+      return defaultClass;
     }
   };
 

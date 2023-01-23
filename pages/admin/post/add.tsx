@@ -12,51 +12,96 @@ type AdminAddPropType = {
   postId: string | null;
 };
 
+type FieldErrorType = {
+  title?: string[];
+  body?: string[];
+};
+
 const AdminAddPost: NextPage<AdminAddPropType> = ({ postId }) => {
   // global state
   const dispatch = useDispatch();
 
   // local state
-  const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  // field
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+
+  // error msgs
+  const [fieldErrors, setFieldErrors] = useState<FieldErrorType>({});
+
+  // form
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const changeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+    const { value } = e.target;
+
+    setTitle(value);
+
+    if (value) {
+      setFieldErrors((prevState) => {
+        return {
+          ...prevState,
+          title: [],
+        };
+      });
+    }
   };
 
   const changeBody = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setBody(e.target.value);
+    const { value } = e.target;
+
+    setBody(value);
+
+    if (value) {
+      setFieldErrors((prevState) => {
+        return {
+          ...prevState,
+          body: [],
+        };
+      });
+    }
   };
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const payload = {
-      title,
-      body,
-    };
-
     setLoading(true);
+    setError('');
+    setFieldErrors({});
 
-    if (postId) {
-      try {
-        await axios.put('/posts/' + postId, payload);
-        dispatch(setSnackbar({ text: 'Data edited', type: 'success' }));
-        router.push('/admin/post');
-      } catch {
-        setError('Sorry, an error occcured');
+    if (title && body) {
+      const payload = {
+        title,
+        body,
+      };
+
+      if (postId) {
+        try {
+          await axios.put('/posts/' + postId, payload);
+          dispatch(setSnackbar({ text: 'Data edited', type: 'success' }));
+          router.push('/admin/post');
+        } catch {
+          setError('Sorry, an error occcured');
+        }
+      } else {
+        try {
+          await axios.post('/posts', payload);
+          dispatch(setSnackbar({ text: 'Data added', type: 'success' }));
+          router.push('/admin/post');
+        } catch {
+          setError('Sorry, an error occcured');
+        }
       }
     } else {
-      try {
-        await axios.post('/posts', payload);
-        dispatch(setSnackbar({ text: 'Data added', type: 'success' }));
-        router.push('/admin/post');
-      } catch {
-        setError('Sorry, an error occcured');
-      }
+      let errors: FieldErrorType = {};
+
+      if (!title) errors.title = ['Field is required'];
+      if (!body) errors.body = ['Field is required'];
+
+      setFieldErrors(errors);
     }
     setLoading(false);
   };
@@ -89,12 +134,14 @@ const AdminAddPost: NextPage<AdminAddPropType> = ({ postId }) => {
         value={title}
         onChange={changeTitle}
         disabled={loading}
+        errors={fieldErrors?.title || []}
       />
       <TextArea
         label="Body"
         value={body}
         onChange={changeBody}
         disabled={loading}
+        errors={fieldErrors?.body || []}
       />
       <button className="btn-post" disabled={loading}>
         Submit

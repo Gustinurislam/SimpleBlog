@@ -32,7 +32,7 @@ textarea {
 }
 
 .input-post {
-  @apply bg-transparent p-1 border w-1/2 border-blue-500 rounded-md;
+  @apply bg-transparent p-1 border w-1/2 rounded-md;
 }
 
 .btn-post:disabled,
