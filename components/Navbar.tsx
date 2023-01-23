@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import  constants  from 'helpers/constants';
 
-const categories = constants.categories
+export const categories = ['Text', 'Image', 'Video'];
 
 const Navbar = () => {
   const { pathname } = useRouter();

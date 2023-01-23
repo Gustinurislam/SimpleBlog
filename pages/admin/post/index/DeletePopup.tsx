@@ -26,7 +26,6 @@ const DeletePopup = ({ postId, setPostId }: DeletePopupPropType) => {
       dispatch(
         setSnackbar({ text: 'Sorry, an error occcured', type: 'error' }),
       );
-      // setError('Sorry, an error occcured');
     }
     setLoading(false);
   };

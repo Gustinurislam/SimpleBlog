@@ -10,8 +10,13 @@ type AdminPropType = {
 };
 
 function Admin({ children }: AdminPropType) {
-  const { route } = useRouter();
-  const title = pathToTitle(route);
+  const { asPath } = useRouter();
+  let title = pathToTitle(asPath);
+
+  if (asPath.includes('?')) {
+    const arr = asPath.split('?');
+    title = pathToTitle(arr[0]);
+  }
 
   return (
     <div>

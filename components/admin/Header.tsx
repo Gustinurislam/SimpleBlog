@@ -3,8 +3,13 @@ import { useRouter } from 'next/router';
 import { FaChevronDown, FaFolderOpen, FaUserAlt } from 'react-icons/fa';
 
 const Header = () => {
-  const { route } = useRouter();
-  const title = pathToTitle(route);
+  const { asPath } = useRouter();
+  let title = pathToTitle(asPath);
+
+  if (asPath.includes('?')) {
+    const arr = asPath.split('?');
+    title = pathToTitle(arr[0]);
+  }
 
   return (
     <header className="bg-blue-500 text-white flex fixed top-0 inset-x-0 z-50">

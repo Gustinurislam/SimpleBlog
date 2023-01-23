@@ -1,8 +1,6 @@
 import Link from 'next/link';
 import { PostType } from 'pages';
-import constants from 'helpers/constants';
-
-const categories = constants.categories;
+import { categories } from './Navbar';
 
 type BlueBoxPropType = {
   posts: PostType[];

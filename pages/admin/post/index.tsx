@@ -24,7 +24,7 @@ const AdminPost: NextPage = () => {
       <Header />
 
       {/* tbl */}
-      <div className="grid grid-cols-3 border-y py-4 text-sm mt-8 font-bold text-blue-500">
+      <div className="grid grid-cols-3 border-y px-4 py-4 text-sm mt-8 font-bold text-blue-500">
         <button className="box-equal gap-x-2">
           Title <FaSort />
         </button>
@@ -42,12 +42,17 @@ const AdminPost: NextPage = () => {
         <TblRowSkeleton />
       ) : (
         // tbl row
-        data.map((post: PostType) => (
+        data.map((post: PostType, i: number) => (
           <div
             key={post.id}
-            className="grid grid-cols-3 border-b text-sm py-4 font-semibold items-center"
+            className={`grid grid-cols-3 border-b text-sm px-4 py-4 font-semibold items-center ${
+              i % 2 === 0 ? 'bg-white' : ''
+            }`}
           >
-            <p>{limitChar(post.title, 40)}</p>
+            <Link href={'/post/' + post.id}>
+              <p>{limitChar(post.title, 40)}</p>
+            </Link>
+
             <p>{limitChar(post.body, 100)}</p>
 
             <div className="box-equal gap-x-2">
